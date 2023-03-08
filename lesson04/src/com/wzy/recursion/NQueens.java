@@ -2,7 +2,7 @@ package com.wzy.recursion;
 
 /**
  * @author wzy
- * @date 2023年03月08日 22:01
+ * @date 2023年03月08日 22:00
  */
 public class NQueens {
     /**
