@@ -61,4 +61,18 @@ public class Knapsack {
         }
         return Math.max(p1, p2);
     }
+
+    public static int dpWay(int[] w, int[] v, int bag) {
+        int N = w.length;
+        int[][] dp = new int[N + 1][bag + 1];
+        // 数组默认初始化为0，无需进行初始化
+        for (int index = N -1; index >= 0; index--) {
+            for (int rest = 1; rest <= bag; rest++) {
+                if (rest >= w[index]) {
+                    dp[index][rest] = Math.max(dp[index + 1][rest], v[index] + dp[index + 1][rest - w[index]]);
+                }
+            }
+        }
+        return dp[0][bag];
+    }
 }
