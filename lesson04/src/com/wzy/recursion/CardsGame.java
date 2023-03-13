@@ -43,4 +43,38 @@ public class CardsGame {
         }
         return Math.min(f(arr, L + 1, R), f(arr, L, R - 1));
     }
+
+    public static int dpWay(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+
+        int N = arr.length;
+        int[][] f = new int[N][N];
+        int[][] s = new int[N][N];
+
+        for (int i = 0; i < N; i++) {
+            f[i][i] = arr[i];
+            // s表初始化默认0，省略
+        }
+
+        for (int i = 1; i < N; i++) {
+            int row = 0;
+            int col = i;
+            while (row < N && col < N) {
+                f[row][col] = Math.max(arr[row] + s[row + 1][col], arr[col] + s[row][col - 1]);
+                s[row][col] = Math.min(f[row + 1][col], f[row][col - 1]);
+                row++;
+                col++;
+            }
+        }
+
+        return Math.max(f[0][N - 1], s[0][N - 1]);
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 7, 100, 26};
+        System.out.println(win1(arr));
+        System.out.println(dpWay(arr));
+    }
 }
