@@ -64,10 +64,33 @@ public class CoinsWay {
         int ways = 0;
         for (int zhang = 0; zhang * arr[index] <=rest; zhang++) {
             // 子过程中rest已严格控制不小于0，故base case的第一部分不需要
+            // 任何一个位置都需要底下一行的值
             ways += memoryWay(arr, index + 1, rest - (zhang * arr[index]), dp);
         }
         // 返回前先存值
         dp[index][rest] = ways;
         return dp[index][rest];
+    }
+
+    public static int ways3(int[] arr, int aim) {
+        if (arr == null || arr.length == 0 || aim < 0) {
+            return 0;
+        }
+        int N = arr.length;
+        int[][] dp = new int[N + 1][aim + 1];
+        // 初始化
+        dp[N][0] = 1; // 其它位置都是0
+
+        for (int index = N - 1; index >= 0; index--) {
+            for (int rest = 0; rest <= aim; rest++) {
+                int ways = 0;
+                for (int zhang = 0; zhang * arr[index] <=rest; zhang++) {
+                    ways += dp[index + 1][rest - (zhang * arr[index])];
+                }
+                dp[index][rest] = ways;
+            }
+        }
+
+        return dp[0][aim];
     }
 }
