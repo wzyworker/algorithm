@@ -93,4 +93,25 @@ public class CoinsWay {
 
         return dp[0][aim];
     }
+
+    public static int ways4(int[] arr, int aim) {
+        if (arr == null || arr.length == 0 || aim < 0) {
+            return 0;
+        }
+        int N = arr.length;
+        int[][] dp = new int[N + 1][aim + 1];
+        // 初始化
+        dp[N][0] = 1; // 其它位置都是0
+
+        for (int index = N - 1; index >= 0; index--) {
+            for (int rest = 0; rest <= aim; rest++) {
+                dp[index][rest] = dp[index + 1][rest];
+                if (rest - arr[index] >= 0) {
+                    dp[index][rest] += dp[index][rest - arr[index]];
+                }
+            }
+        }
+
+        return dp[0][aim];
+    }
 }
