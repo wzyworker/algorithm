@@ -20,11 +20,11 @@ public class SlidingWindowMaxArray {
                 qmax.pollLast();
             }
             qmax.addLast(i);
-            if (qmax.peekFirst() == i - w) {
+            if (qmax.peekFirst() != null &&  qmax.peekFirst() == i - w) {
                 qmax.pollFirst();
             }
             if (i >= w - 1) {
-                res[index++] = arr[qmax.peekFirst()];
+                res[index++] = arr[qmax.peekFirst() != null ? qmax.peekFirst() : 0];
             }
         }
         return res;
